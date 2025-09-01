@@ -4,9 +4,10 @@ import { Menu, Moon, Sun } from "lucide-react-native";
 type NavbarProps = {
   darkMode: boolean;
   setDarkMode: (val: boolean) => void;
+  onMenuPress?: () => void; // 👈 added this
 };
 
-const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
+const Navbar = ({ darkMode, setDarkMode, onMenuPress }: NavbarProps) => {
   return (
     <View
       className={`flex-row items-center justify-between px-4 py-3 shadow-md h-20 ${
@@ -14,7 +15,7 @@ const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
       }`}
     >
       {/* Left - Menu Icon */}
-      <Pressable>
+      <Pressable onPress={onMenuPress}>
         <Menu size={24} color={darkMode ? "white" : "black"} />
       </Pressable>
 
@@ -27,7 +28,7 @@ const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
         Travel Analyzer
       </Text>
 
-      {/* Right - Toggle */}
+      {/* Right - Dark/Light Toggle */}
       <Pressable onPress={() => setDarkMode(!darkMode)}>
         {darkMode ? (
           <Sun size={24} color="white" />

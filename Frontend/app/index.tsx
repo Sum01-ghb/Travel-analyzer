@@ -1,16 +1,30 @@
 import "./global.css";
 import { Text, View } from "react-native";
-import Navbar from "@/components/Navbar";
 import { useState } from "react";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 
 export default function Index() {
-  // Local state to sync with Navbar’s theme
+  // Local state for theme + sidebar
   const [darkMode, setDarkMode] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <View className="flex-1">
+      {/* Sidebar (hidden unless sidebarOpen = true) */}
+      <Sidebar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
+
       {/* Navbar at the top */}
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        onMenuPress={() => setSidebarOpen(true)}
+      />
 
       {/* Main page with inverted color */}
       <View
