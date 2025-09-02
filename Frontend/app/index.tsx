@@ -3,15 +3,15 @@ import { Text, View } from "react-native";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import Card from "@/components/Card";
 
 export default function Index() {
-  // Local state for theme + sidebar
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <View className="flex-1">
-      {/* Sidebar (hidden unless sidebarOpen = true) */}
+      {/* Sidebar */}
       <Sidebar
         darkMode={darkMode}
         setDarkMode={setDarkMode}
@@ -19,26 +19,20 @@ export default function Index() {
         onClose={() => setSidebarOpen(false)}
       />
 
-      {/* Navbar at the top */}
+      {/* Navbar*/}
       <Navbar
         darkMode={darkMode}
         setDarkMode={setDarkMode}
         onMenuPress={() => setSidebarOpen(true)}
       />
 
-      {/* Main page with inverted color */}
+      {/* Main page */}
       <View
-        className={`flex-1 items-center justify-center ${
+        className={`flex-1 items-center justify-center space-y-6 ${
           darkMode ? "bg-white" : "bg-gray-900"
         }`}
       >
-        <Text
-          className={`text-xl font-bold ${
-            darkMode ? "text-blue-600" : "text-blue-300"
-          }`}
-        >
-          Welcome to Nativewind!
-        </Text>
+        <Card darkMode={darkMode} />
       </View>
     </View>
   );
