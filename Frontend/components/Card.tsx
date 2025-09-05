@@ -10,6 +10,7 @@ import {
   Bike,
 } from "lucide-react-native";
 import cn from "clsx";
+import Toast from "react-native-toast-message";
 
 const vehicles = [
   { label: "Car", icon: Car },
@@ -25,6 +26,24 @@ const Card = ({ darkMode }: { darkMode: boolean }) => {
 
   const selectedVehicle = vehicles.find((v) => v.label === selected);
 
+  const handlePress = () => {
+    if (isPlaying) {
+      setIsPlaying(false);
+      Toast.show({
+        type: "error",
+        text1: "❌  Terminating Process",
+        position: "bottom",
+      });
+    } else {
+      setIsPlaying(true);
+      Toast.show({
+        type: "success",
+        text1: "✅  Beginning Data Collection",
+        position: "bottom",
+      });
+    }
+  };
+
   return (
     <View
       className={cn(
@@ -32,7 +51,6 @@ const Card = ({ darkMode }: { darkMode: boolean }) => {
         darkMode ? "bg-gray-800" : "bg-slate-300"
       )}
     >
-      {/* Title */}
       <Text
         className={cn(
           "text-lg font-semibold text-center mb-3",
@@ -65,7 +83,7 @@ const Card = ({ darkMode }: { darkMode: boolean }) => {
         <ChevronDown size={20} color="gray" />
       </TouchableOpacity>
 
-      {/* Custom Dropdown */}
+      {/* Dropdown */}
       {open && (
         <View
           className={cn(
@@ -116,7 +134,7 @@ const Card = ({ darkMode }: { darkMode: boolean }) => {
 
       {/* Action Button */}
       <TouchableOpacity
-        onPress={() => setIsPlaying(!isPlaying)}
+        onPress={handlePress}
         className={cn(
           "mt-5 w-32 h-32 rounded-full items-center justify-center self-center",
           isPlaying ? "bg-red-500" : "bg-green-500"
