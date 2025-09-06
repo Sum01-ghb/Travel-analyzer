@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <section
       className={cn(
-        "w-72 max-w-full h-screen sticky top-0 flex flex-col border-r bg-white dark:bg-gray-900 dark:border-gray-800 px-5 py-6 rounded-r-sm"
+        "w-[270px] max-w-full h-screen sticky top-0 flex flex-col border-r bg-white dark:bg-gray-900 dark:border-gray-800 px-5 py-6 rounded-r-sm"
       )}
     >
       {/* Header */}

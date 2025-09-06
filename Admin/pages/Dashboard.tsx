@@ -1,4 +1,12 @@
-import { Activity, Move, Compass } from "lucide-react";
+import {
+  Activity,
+  Move,
+  Compass,
+  Footprints,
+  Clock,
+  Car,
+  Download,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import {
   LineChart,
@@ -32,7 +40,6 @@ const Dashboard = () => {
   const [accelData, setAccelData] = useState<{ time: number; accel: number }[]>(
     []
   );
-
   const [gyroData, setGyroData] = useState<{ x: number; y: number; z: number }>(
     {
       x: 0,
@@ -40,7 +47,6 @@ const Dashboard = () => {
       z: 0,
     }
   );
-
   const [heading, setHeading] = useState(0);
 
   useEffect(() => {
@@ -72,11 +78,24 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full relative overflow-hidden">
-      <div className="mb-6 relative z-10">
-        <h1 className="text-4xl font-bold text-white drop-shadow-lg">
-          Dashboard
-        </h1>
-        <p className="text-gray-300 font-medium">Motion sensor data overview</p>
+      <div className="mb-6 relative z-10 flex items-center justify-between pr-3">
+        <div>
+          <h1 className="text-4xl font-bold text-white drop-shadow-lg">
+            Dashboard
+          </h1>
+          <p className="text-gray-300 font-medium">
+            Motion sensor data overview
+          </p>
+        </div>
+
+        <motion.button
+          whileHover={{ scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-purple-700 to-violet-600  text-white font-semibold shadow-md cursor-pointer"
+        >
+          <Download size={20} className="text-purple-200" />
+          Export Data
+        </motion.button>
       </div>
 
       <div className="flex flex-1 gap-6 relative z-10">
@@ -86,7 +105,7 @@ const Dashboard = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.3 }}
             whileHover={{ y: -8, scale: 1.02 }}
             className="rounded-2xl bg-gray-900/60 backdrop-blur-md p-6 shadow-lg border border-purple-500/30"
           >
@@ -129,7 +148,7 @@ const Dashboard = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             whileHover={{ y: -8, scale: 1.02 }}
             className="rounded-2xl bg-gray-900/60 backdrop-blur-md p-6 shadow-lg border border-fuchsia-500/30 flex flex-col items-center"
           >
@@ -201,7 +220,7 @@ const Dashboard = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
             whileHover={{ y: -8, scale: 1.02 }}
             className="rounded-2xl bg-gray-900/60 backdrop-blur-md p-6 shadow-lg border border-indigo-500/30"
           >
@@ -253,19 +272,51 @@ const Dashboard = () => {
           </motion.div>
         </div>
 
-        {/* Right side (Summary) */}
+        {/* Right side (Journey Summary) */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          className="w-1/3 rounded-2xl bg-gray-900/60 backdrop-blur-md p-6 shadow-lg border border-purple-500/30"
+          transition={{ duration: 0.3, delay: 0.6 }}
+          className="w-1/3 flex flex-col gap-6"
         >
-          <h2 className="text-2xl font-semibold text-white mb-4">Summary</h2>
-          <ul className="text-gray-300 text-lg space-y-3">
-            <li>Steps: 0</li>
-            <li>Calories Burned: 0</li>
-            <li>Activity: Idle</li>
-          </ul>
+          {[
+            {
+              title: "Footsteps",
+              icon: <Footprints className="text-purple-400" size={28} />,
+              data: "12,458 steps",
+            },
+            {
+              title: "Mode of Transport",
+              icon: <Car className="text-fuchsia-400" size={28} />,
+              data: "Train",
+            },
+            {
+              title: "Time-Stamps",
+              icon: <Clock className="text-indigo-400" size={28} />,
+              data: "523.42 seconds",
+            },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 * idx }}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="rounded-2xl bg-gray-900/60 backdrop-blur-md p-5 shadow-lg border border-purple-500/30 w-full h-32 flex flex-col justify-center"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                {item.icon}
+                <h3 className="text-xl font-semibold text-white">
+                  {item.title}
+                </h3>
+              </div>
+              <p className="text-lg text-gray-300 font-mono">
+                {false /* replace with inProgress later */
+                  ? "In Progress..."
+                  : item.data}
+              </p>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </div>
