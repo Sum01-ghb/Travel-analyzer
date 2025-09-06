@@ -1,5 +1,5 @@
 import "./global.css";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";

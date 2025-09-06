@@ -295,6 +295,22 @@ const Dashboard = () => {
               icon: <Clock className="text-indigo-400" size={28} />,
               data: "523.42 seconds",
             },
+            {
+              title: "Location",
+              icon: <Compass className="text-cyan-400" size={28} />,
+              data: (
+                <div className="flex flex-col gap-1">
+                  <span className="text-gray-200 font-semibold">
+                    Latitude:{" "}
+                    <span className="font-normal text-gray-300">12.9716</span>
+                  </span>
+                  <span className="text-gray-200 font-semibold">
+                    Longitude:{" "}
+                    <span className="font-normal text-gray-300">77.5946</span>
+                  </span>
+                </div>
+              ),
+            },
           ].map((item, idx) => (
             <motion.div
               key={idx}
@@ -310,11 +326,11 @@ const Dashboard = () => {
                   {item.title}
                 </h3>
               </div>
-              <p className="text-lg text-gray-300 font-mono">
+              <div className="text-lg text-gray-300 font-mono">
                 {false /* replace with inProgress later */
                   ? "In Progress..."
                   : item.data}
-              </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>
